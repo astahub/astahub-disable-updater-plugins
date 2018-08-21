@@ -10,6 +10,7 @@ Text Domain: astahub-disable-updater-plugins
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
+// disable updater, plugins & editor
 add_action('init', 'astahub_disable_updater_plugins', 11);
 function astahub_disable_updater_plugins() {
     # Disable the Plugin and Theme Editor
@@ -23,6 +24,13 @@ function astahub_disable_updater_plugins() {
 
     # Enable Core Updates For Minor Releases
     define( 'WP_AUTO_UPDATE_CORE', 'minor' );
+}
+
+// disable updater notification
+add_action('admin_head', 'astahub_disable_updater_notices', 10);
+function astahub_disable_updater_notices() {
+    remove_action( 'admin_notices', 'update_nag', 3 );
+    remove_action( 'admin_notices', 'maintenance_nag', 10 );
 }
 
 // Remove plugins and tools in menu
@@ -54,3 +62,6 @@ function astahub_disable_updater_plugins_admin_menu_redirect() {
         wp_redirect(admin_url()); exit;
     }
 }
+
+// disable acf admin editor
+add_filter('acf/settings/show_admin', '__return_false');
