@@ -53,7 +53,7 @@ function astahub_disable_updater_plugins_admin_menu_redirect() {
     }
 
     // redirect themes.php
-    if ($pagenow === 'themes.php') {
+    if ($pagenow === 'themes.php' && !is_multisite()) {
         wp_redirect(admin_url()); exit;
     }
 
